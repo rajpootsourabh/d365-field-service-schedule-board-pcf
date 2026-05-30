@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  ControlManifest.Input.xml
+  PCF Control: ScheduleBoard
+  Description: Custom Schedule Board for Dynamics 365 Field Service / Resource Scheduling.
+               Mimics the legacy D365 Schedule Board UI with a Gantt-style resource timeline.
+-->
+<manifest>
+  <control
+    namespace="CustomControls"
+    constructor="ScheduleBoardControl"
+    version="1.0.0"
+    display-name-key="ScheduleBoard_DisplayName"
+    description-key="ScheduleBoard_Description"
+    control-type="standard"
+    >
+
+    <!-- ── Input Properties ───────────────────────────────────────────────── -->
+
+    <!--
+      dateRangeStart: The start date of the visible schedule window.
+      Bind this to a date column or pass from a parent Power App.
+    -->
+    <property
+      name="dateRangeStart"
+      display-name-key="DateRangeStart_DisplayName"
+      description-key="DateRangeStart_Description"
+      of-type="DateAndTime.DateOnly"
+      usage="input"
+      required="false"
+    />
+
+    <!--
+      dateRangeEnd: The end date of the visible schedule window.
+    -->
+    <property
+      name="dateRangeEnd"
+      display-name-key="DateRangeEnd_DisplayName"
+      description-key="DateRangeEnd_Description"
+      of-type="DateAndTime.DateOnly"
+      usage="input"
+      required="false"
+    />
+
+    <!--
+      configJSON: Optional JSON string to pass board configuration
+      (e.g., color mappings, feature flags, territory filters).
+      Expected shape: { "territory": string, "showMap": boolean }
+    -->
+    <property
+      name="configJSON"
+      display-name-key="ConfigJSON_DisplayName"
+      description-key="ConfigJSON_Description"
+      of-type="SingleLine.Text"
+      usage="input"
+      required="false"
+    />
+
+    <!-- ── Resources ────────────────────────────────────────────────────── -->
+    <!--
+      resourcesDataSet: A bound dataset of bookable resources.
+      Columns expected: fullname, msdyn_startlocation, msdyn_endlocation
+    -->
+    <data-set
+      name="resourcesDataSet"
+      display-name-key="ResourcesDataSet_DisplayName"
+      cds-data-set-options="displayCommandBar:false;displayViewSelector:false"
+    >
+    </data-set>
+
+    <!-- ── Bookings ──────────────────────────────────────────────────────── -->
+    <!--
+      bookingsDataSet: A bound dataset of resource bookings.
+      Columns expected: msdyn_bookingstatus, starttime, endtime, duration,
+                        msdyn_resourcerequirement, bookableresourceid
+    -->
+    <data-set
+      name="bookingsDataSet"
+      display-name-key="BookingsDataSet_DisplayName"
+      cds-data-set-options="displayCommandBar:false;displayViewSelector:false"
+    >
+    </data-set>
+
+    <!-- ── Requirements ─────────────────────────────────────────────────── -->
+    <!--
+      requirementsDataSet: Open (unscheduled) resource requirements.
+      Columns expected: msdyn_name, msdyn_fromdate, msdyn_todate, msdyn_duration,
+                        msdyn_remainingduration, msdyn_priority, msdyn_territory
+    -->
+    <data-set
+      name="requirementsDataSet"
+      display-name-key="RequirementsDataSet_DisplayName"
+      cds-data-set-options="displayCommandBar:false;displayViewSelector:false"
+    >
+    </data-set>
+
+    <!-- ── Resources (code) ─────────────────────────────────────────────── -->
+    <resources>
+      <code path="index.ts" order="1" />
+      <css path="css/ScheduleBoard.css" order="1" />
+
+      <!-- Fluent UI / React are expected as external dependencies via webpack -->
+      <!-- Add platform library declarations if needed by your build tooling  -->
+      <!-- <platform-library name="React" version="16.8.6" />
+      <platform-library name="Fluent" version="8.0" /> -->
+    </resources>
+
+    <!-- ── Feature Usage ────────────────────────────────────────────────── -->
+    <feature-usage>
+      <!-- Required to call Dataverse Web API for bookings / resources       -->
+      <uses-feature name="WebAPI" required="true" />
+    </feature-usage>
+
+  </control>
+</manifest>

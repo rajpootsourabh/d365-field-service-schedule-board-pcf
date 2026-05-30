@@ -1,0 +1,1194 @@
+/* ScheduleBoard.css — D365 Field Service Schedule Board styles */
+
+/* ── Reset / Base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+.sb-root {
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  color: #323130;
+  background: #f3f2f1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ── Top Toolbar ─────────────────────────────────────────────────────────── */
+.sb-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  height: 44px;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+  flex-shrink: 0;
+  z-index: 20;
+}
+
+.sb-toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: #d2d0ce;
+  margin: 0 4px;
+}
+
+.sb-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  color: #323130;
+  border-radius: 2px;
+  transition: background 0.1s;
+}
+
+.sb-filter-btn:hover {
+  background: #f3f2f1;
+}
+
+/* View Dropdown */
+.sb-view-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.sb-view-dropdown-btn {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #323130;
+  border-radius: 2px;
+  height: 32px;
+}
+
+.sb-view-dropdown-btn:hover {
+  background: #f3f2f1;
+  border-color: #8a8886;
+}
+
+.sb-view-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #c8c6c4;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  min-width: 140px;
+  z-index: 1000;
+  margin-top: 2px;
+}
+
+.sb-view-dropdown-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #323130;
+}
+
+.sb-view-dropdown-item:hover {
+  background: #f3f2f1;
+}
+
+.sb-view-dropdown-item.selected {
+  background: #edebe9;
+  font-weight: 600;
+}
+
+/* View Selector Buttons */
+.sb-view-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 10px;
+  height: 32px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  color: #323130;
+  border-radius: 2px;
+  transition: background 0.1s;
+}
+
+.sb-view-btn:hover {
+  background: #f3f2f1;
+}
+
+.sb-view-btn.active {
+  background: #deecf9;
+  color: #0078d4;
+  font-weight: 600;
+}
+
+/* Date Navigator */
+.sb-date-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sb-date-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 50%;
+  color: #323130;
+  transition: background 0.1s;
+}
+
+.sb-date-nav-btn:hover {
+  background: #f3f2f1;
+}
+
+.sb-date-nav-btn:active {
+  background: #edebe9;
+}
+
+.sb-date-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  height: 32px;
+  border: 1px solid #c8c6c4;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 12px;
+  color: #323130;
+  white-space: nowrap;
+}
+
+/* Toolbar Buttons */
+.sb-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #c8c6c4;
+  border-radius: 2px;
+  background: #fff;
+  cursor: pointer;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  color: #323130;
+  white-space: nowrap;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.sb-btn:hover {
+  background: #f3f2f1;
+  border-color: #a19f9d;
+}
+
+.sb-btn.primary {
+  background: #0078d4;
+  border-color: #0078d4;
+  color: #fff;
+}
+
+.sb-btn.primary:hover {
+  background: #106ebe;
+  border-color: #106ebe;
+}
+
+.sb-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.sb-icon-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #605e5c;
+  transition: background 0.1s;
+}
+
+.sb-icon-btn:hover {
+  background: #f3f2f1;
+}
+
+/* ── Tab Bar ─────────────────────────────────────────────────────────────── */
+/* ── Tab Bar ─────────────────────────────────────────────────────────────── */
+.sb-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  padding: 0 12px;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+  flex-shrink: 0;
+  height: 36px;
+  z-index: 19;
+  overflow-x: auto;
+}
+
+.sb-tab {
+  padding: 0 16px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #605e5c;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.1s, border-color 0.1s;
+  flex-shrink: 0;
+}
+
+.sb-tab:hover {
+  color: #323130;
+}
+
+.sb-tab.active {
+  color: #0078d4;
+  border-bottom-color: #0078d4;
+  font-weight: 600;
+}
+
+.sb-tabs-more {
+  margin-left: 8px;
+  color: #605e5c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+/* ── Main Body: Left Panel + Gantt ──────────────────────────────────────── */
+.sb-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Left Resource Panel ─────────────────────────────────────────────────── */
+/* ── Left Resource Panel ─────────────────────────────────────────────────── */
+.sb-left-panel {
+  width: 220px;
+  flex-shrink: 0;
+  background: #fff;
+  border-right: 1px solid #e1dfdd;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.sb-resource-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e1dfdd;
+  height: 56px;
+}
+
+.sb-resource-search-inner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  border: 1px solid #c8c6c4;
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 32px;
+  background: #faf9f8;
+}
+
+.sb-resource-search-inner input {
+  border: none;
+  outline: none;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  color: #323130;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.sb-resource-search-inner input::placeholder {
+  color: #a19f9d;
+}
+
+.sb-resource-sort-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #c8c6c4;
+  border-radius: 2px;
+  background: #faf9f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #605e5c;
+  flex-shrink: 0;
+}
+
+.sb-resource-sort-btn:hover {
+  background: #f3f2f1;
+}
+
+/* Resource List */
+.sb-resource-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sb-resource-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px;
+  height: 64px;
+  border-bottom: 1px solid #edebe9;
+  cursor: pointer;
+  transition: background 0.1s;
+  background: #fff;
+}
+
+.sb-resource-row:hover {
+  background: #faf9f8;
+}
+
+.sb-resource-row.selected {
+  background: #deecf9;
+}
+
+.sb-resource-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.3px;
+}
+
+.sb-resource-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  max-width: 130px; /* Add this to limit the width */
+  align-items: flex-start;
+}
+
+.sb-resource-name {
+  font-size: 13px;
+  font-weight: 400;
+  color: #323130;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  width: 100%; /* Ensure it takes full width */
+  text-align: left; /* Explicitly left align */
+}
+
+.sb-resource-utilization {
+  font-size: 11px;
+  color: #605e5c;
+  line-height: 1.2;
+   width: 100%; /* Ensure it takes full width */
+  text-align: left; /* Explicitly left align */
+}
+
+.sb-resource-util-bar {
+  width: 80%; /* Changed from 100% to 80% */
+  height: 3px;
+  background: #edebe9;
+  border-radius: 2px;
+  margin-top: 1px;
+  overflow: hidden;
+  align-self: flex-start; /* Align the bar to the left */
+}
+
+.sb-resource-util-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: #0078d4;
+  transition: width 0.3s;
+}
+
+/* Pagination footer */
+.sb-resource-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 32px;
+  border-top: 1px solid #e1dfdd;
+  font-size: 12px;
+  color: #323130;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.sb-page-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #605e5c;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sb-page-btn:hover {
+  background: #f3f2f1;
+}
+
+.sb-page-btn:disabled {
+  color: #c8c6c4;
+  cursor: default;
+}
+
+/* ── Gantt Center ─────────────────────────────────────────────────────────── */
+.sb-gantt-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: #f3f2f1;
+}
+
+/* Date label above time headers - this should match search bar height */
+.sb-date-label-row {
+  height: 24px; /* Reduced from 24px to 24px */
+  background: #f3f2f1;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #323130;
+  border-bottom: 1px solid #e1dfdd;
+  flex-shrink: 0;
+}
+
+/* Time header row */
+.sb-time-header {
+  display: flex;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+  height: 32px; /* Reduced from 40px to 32px */
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.sb-time-header-inner {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.sb-time-slot-header {
+  flex-shrink: 0;
+  width: 120px;
+  height: 32px; /* Reduced from 40px to 32px */
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 12px;
+  color: #605e5c;
+  border-right: 1px solid #edebe9;
+  white-space: nowrap;
+}
+
+/* Gantt scroll container */
+.sb-gantt-scroll {
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Gantt grid rows container */
+.sb-gantt-rows {
+  position: relative;
+  min-width: max-content;
+}
+
+/* ── Gantt Row ──────────────────────────────────────────────────────────────── */
+/* Single resource row in gantt */
+.sb-gantt-row {
+  display: flex;
+  align-items: stretch;
+  height: 64px; /* Changed from 60px to 64px to match resource row */
+  border-bottom: 1px solid #edebe9;
+  position: relative;
+  background: #fff;
+}
+
+.sb-gantt-row:nth-child(even) {
+  background: #faf9f8;
+}
+
+.sb-gantt-row.selected-row {
+  background: #f0f6fd;
+}
+
+/* Hour cell background */
+.sb-gantt-cell {
+  flex-shrink: 0;
+  width: 120px;
+  border-right: 1px solid #f3f2f1;
+  position: relative;
+}
+
+/* ── Booking Block ────────────────────────────────────────────────────────── */
+.sb-booking-block {
+  position: absolute;
+  top: 6px;
+  height: 48px;
+  border-radius: 3px;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: filter 0.1s, box-shadow 0.1s;
+  z-index: 2;
+}
+
+.sb-booking-block:hover {
+  filter: brightness(0.95);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  z-index: 3;
+}
+
+/* Color variants */
+.sb-booking-block.blue {
+  background: #cfe8ff;
+  border-color: #9dc5e8;
+}
+
+.sb-booking-block.light-blue {
+  background: #dce9f5;
+  border-color: #bcd3ea;
+}
+
+.sb-booking-block.dark-blue {
+  background: #1c5ba0;
+  border-color: #164d8a;
+  color: #fff;
+}
+
+.sb-booking-block.pink {
+  background: #f4c0c0;
+  border-color: #e8a0a0;
+}
+
+.sb-booking-block.green {
+  background: #d2e9b7;
+  border-color: #b3d48a;
+}
+
+.sb-booking-block.grey {
+  background: #f3f2f1;
+  border-color: #d2d0ce;
+}
+
+/* Dashed placeholder */
+.sb-booking-block.dashed {
+  background: transparent;
+  border: 2px dashed #c8c6c4;
+  opacity: 0.7;
+}
+
+.sb-booking-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #323130;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.sb-booking-block.dark-blue .sb-booking-title {
+  color: #fff;
+}
+
+.sb-booking-block.dashed .sb-booking-title {
+  color: #605e5c;
+}
+
+.sb-booking-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sb-booking-subtitle {
+  font-size: 10px;
+  color: #605e5c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sb-booking-block.dark-blue .sb-booking-subtitle {
+  color: #c7e0f4;
+}
+
+.sb-booking-icon {
+  font-size: 11px;
+  color: #605e5c;
+  flex-shrink: 0;
+}
+
+.sb-booking-block.dark-blue .sb-booking-icon {
+  color: #c7e0f4;
+}
+
+.sb-booking-work-order {
+  font-size: 11px;
+  font-weight: 600;
+  color: #323130;
+  text-decoration: underline;
+  display: block;
+  line-height: 1.2;
+}
+
+.sb-booking-block.dark-blue .sb-booking-work-order {
+  color: #fff;
+}
+
+/* Zoom slider */
+.sb-zoom-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 12px;
+  height: 32px;
+  background: #f3f2f1;
+  border-top: 1px solid #e1dfdd;
+  flex-shrink: 0;
+}
+
+.sb-zoom-slider {
+  width: 120px;
+  accent-color: #0078d4;
+  cursor: pointer;
+}
+
+.sb-zoom-value {
+  font-size: 12px;
+  color: #605e5c;
+  width: 32px;
+  text-align: right;
+}
+
+/* ── Bottom Panel ─────────────────────────────────────────────────────────── */
+.sb-bottom-panel {
+  flex-shrink: 0;
+  background: #fff;
+  border-top: 1px solid #e1dfdd;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  overflow: hidden;
+}
+
+.sb-bottom-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  padding: 0 12px;
+  border-bottom: 1px solid #e1dfdd;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.sb-bottom-tab {
+  padding: 0 16px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  color: #605e5c;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.1s;
+}
+
+.sb-bottom-tab.active {
+  color: #0078d4;
+  border-bottom-color: #0078d4;
+  font-weight: 600;
+}
+
+.sb-bottom-tab:hover {
+  color: #323130;
+}
+
+/* Requirements Table */
+.sb-req-table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.sb-req-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.sb-req-table thead th {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+  padding: 6px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #323130;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.sb-req-table thead th:first-child {
+  width: 32px;
+  padding: 6px 8px;
+}
+
+.sb-req-table tbody tr {
+  border-bottom: 1px solid #f3f2f1;
+  transition: background 0.1s;
+  cursor: pointer;
+}
+
+.sb-req-table tbody tr:hover {
+  background: #f3f2f1;
+}
+
+.sb-req-table tbody tr.selected {
+  background: #deecf9;
+}
+
+.sb-req-table tbody td {
+  padding: 6px 12px;
+  color: #323130;
+  white-space: nowrap;
+}
+
+.sb-req-table tbody td:first-child {
+  padding: 6px 8px;
+}
+
+.sb-req-link {
+  color: #0078d4;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sb-req-link:hover {
+  text-decoration: underline;
+}
+
+.sb-status-active {
+  color: #107c10;
+}
+
+/* Bottom pagination */
+.sb-bottom-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 32px;
+  border-top: 1px solid #e1dfdd;
+  font-size: 12px;
+  color: #323130;
+  flex-shrink: 0;
+  background: #faf9f8;
+}
+
+.sb-bottom-footer .sb-page-btn {
+  width: 32px;
+  height: 32px;
+}
+
+/* ── List View Styles ────────────────────────────────────────────────────── */
+.sb-list-view-container {
+  padding: 8px;
+  overflow: auto;
+  height: 100%;
+}
+
+.sb-list-view-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.sb-list-view-table th {
+  text-align: left;
+  padding: 8px 12px;
+  background: #f3f2f1;
+  border-bottom: 1px solid #e1dfdd;
+  font-weight: 600;
+  color: #323130;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.sb-list-view-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #edebe9;
+  vertical-align: middle;
+}
+
+.sb-list-view-table tr:hover {
+  background: #f3f2f1;
+}
+
+.sb-status-draft {
+  color: #605e5c;
+  font-style: italic;
+}
+
+.sb-status-scheduled {
+  color: #107c10;
+}
+
+/* ── Scrollbar styling ───────────────────────────────────────────────────── */
+.sb-gantt-scroll::-webkit-scrollbar,
+.sb-resource-list::-webkit-scrollbar,
+.sb-req-table-wrapper::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.sb-gantt-scroll::-webkit-scrollbar-track,
+.sb-resource-list::-webkit-scrollbar-track,
+.sb-req-table-wrapper::-webkit-scrollbar-track {
+  background: #f3f2f1;
+}
+
+.sb-gantt-scroll::-webkit-scrollbar-thumb,
+.sb-resource-list::-webkit-scrollbar-thumb,
+.sb-req-table-wrapper::-webkit-scrollbar-thumb {
+  background: #c8c6c4;
+  border-radius: 4px;
+}
+
+.sb-gantt-scroll::-webkit-scrollbar-thumb:hover,
+.sb-resource-list::-webkit-scrollbar-thumb:hover,
+.sb-req-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #a19f9d;
+}
+
+/* ── NEW: Daily View Styles ───────────────────────────────────────────────── */
+.sb-view-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.sb-daily-header-row {
+  display: flex;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+  flex-direction: column;
+}
+
+.sb-daily-resource-row {
+  display: flex;
+  border-bottom: 1px solid #edebe9;
+  background: #fff;
+  min-height: 64px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.sb-daily-resource-row:nth-child(even) {
+  background: #faf9f8;
+}
+
+.sb-daily-resource-row.selected-row {
+  background: #f0f6fd;
+}
+
+.sb-daily-day-cell {
+  flex-shrink: 0;
+  border-right: 1px solid #edebe9;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 64px;
+  position: relative;
+}
+
+.sb-daily-day-cell-header {
+  font-size: 11px;
+  font-weight: 600;
+  color: #323130;
+  padding: 2px 4px;
+  border-bottom: 1px solid #f3f2f1;
+  text-align: center;
+}
+
+/* Daily Chip - shows "9:00 AM Title" like D365 */
+.sb-daily-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 2px;
+  font-size: 11px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  transition: filter 0.1s;
+}
+
+.sb-daily-chip:hover {
+  filter: brightness(0.95);
+}
+
+.sb-daily-chip.blue {
+  background: #cfe8ff;
+  border-color: #9dc5e8;
+}
+
+.sb-daily-chip.light-blue {
+  background: #dce9f5;
+  border-color: #bcd3ea;
+}
+
+.sb-daily-chip.pink {
+  background: #f4c0c0;
+  border-color: #e8a0a0;
+}
+
+.sb-daily-chip.green {
+  background: #d2e9b7;
+  border-color: #b3d48a;
+}
+
+.sb-daily-chip.grey {
+  background: #f3f2f1;
+  border-color: #d2d0ce;
+}
+
+.sb-daily-chip.dashed {
+  background: transparent;
+  border: 1px dashed #c8c6c4;
+  opacity: 0.7;
+}
+
+.sb-daily-chip.dark-blue {
+  background: #1c5ba0;
+  border-color: #164d8a;
+  color: #fff;
+}
+
+.sb-daily-chip-time {
+  font-size: 10px;
+  font-weight: 600;
+  color: #323130;
+  flex-shrink: 0;
+}
+
+.sb-daily-chip.dark-blue .sb-daily-chip-time {
+  color: #fff;
+}
+
+.sb-daily-chip-title {
+  font-size: 11px;
+  color: #323130;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sb-daily-chip.dark-blue .sb-daily-chip-title {
+  color: #fff;
+}
+
+.sb-daily-chip-icon {
+  flex-shrink: 0;
+  color: #605e5c;
+  font-size: 10px;
+}
+
+.sb-daily-chip.dark-blue .sb-daily-chip-icon {
+  color: #c7e0f4;
+}
+
+/* Hours summary bar at top of day column */
+.sb-daily-hours-bar {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #323130;
+  border-radius: 2px;
+  padding: 0 4px;
+  white-space: nowrap;
+  margin-bottom: 2px;
+}
+
+/* ── NEW: Weekly View Styles ──────────────────────────────────────────────── */
+.sb-weekly-resource-row {
+  display: flex;
+  border-bottom: 1px solid #edebe9;
+  background: #fff;
+  height: 64px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.sb-weekly-resource-row:nth-child(even) {
+  background: #faf9f8;
+}
+
+.sb-weekly-resource-row.selected-row {
+  background: #f0f6fd;
+}
+
+.sb-weekly-week-cell {
+  flex-shrink: 0;
+  border-right: 1px solid #edebe9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.sb-weekly-hours-badge {
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #323130;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Weekly Header */
+.sb-weekly-header-wrap {
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+}
+
+.sb-weekly-month-header {
+  display: flex;
+  background: #f3f2f1;
+  border-bottom: 1px solid #edebe9;
+  height: 22px;
+}
+
+.sb-weekly-month-seg {
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #323130;
+  border-right: 1px solid #edebe9;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.sb-weekly-week-header {
+  display: flex;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+  height: 32px;
+}
+
+.sb-weekly-week-label {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #323130;
+  border-right: 1px solid #edebe9;
+}
+
+/* ── Fix for Hourly View header ────────────────────────────────────────────── */
+.sb-hourly-header-row {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+}
+
+.sb-hourly-header-row .sb-date-label-row {
+  border-bottom: 1px solid #edebe9;
+  background: #f3f2f1;
+}
