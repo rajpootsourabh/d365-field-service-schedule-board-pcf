@@ -1,6 +1,5 @@
-/* ScheduleBoard.css — D365 Field Service Schedule Board styles */
+/* ScheduleBoard.css — Restored original styling with new view support */
 
-/* ── Reset / Base ─────────────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -15,6 +14,8 @@
   height: 100vh;
   overflow: hidden;
   user-select: none;
+    border: 1px solid #e1dfdd;  /* Add border on all sides */
+  box-sizing: border-box;      /* Ensure border is included in height */
 }
 
 /* ── Top Toolbar ─────────────────────────────────────────────────────────── */
@@ -37,13 +38,14 @@
   margin: 0 4px;
 }
 
+/* Filter Button - consistent with view dropdown */
 .sb-filter-btn {
   display: flex;
   align-items: center;
-  gap: 5px;
-  height: 28px;
+  gap: 6px;
+  height: 32px;
   padding: 0 10px;
-  border: none;
+  border: 1px solid transparent;
   background: transparent;
   cursor: pointer;
   font-family: "Segoe UI", sans-serif;
@@ -57,7 +59,7 @@
   background: #f3f2f1;
 }
 
-/* View Dropdown */
+/* View Dropdown - Original styling */
 .sb-view-dropdown-container {
   position: relative;
   display: inline-block;
@@ -66,19 +68,20 @@
 .sb-view-dropdown-btn {
   display: flex;
   align-items: center;
-  padding: 4px 10px;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
   border: 1px solid transparent;
   background: transparent;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   color: #323130;
   border-radius: 2px;
-  height: 32px;
+  transition: background 0.1s;
 }
 
 .sb-view-dropdown-btn:hover {
   background: #f3f2f1;
-  border-color: #8a8886;
 }
 
 .sb-view-dropdown-menu {
@@ -97,6 +100,7 @@
 .sb-view-dropdown-item {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 8px 12px;
   cursor: pointer;
   font-size: 13px;
@@ -112,13 +116,13 @@
   font-weight: 600;
 }
 
-/* View Selector Buttons */
-.sb-view-btn {
+/* List View Toggle Button - consistent sizing */
+.sb-list-toggle-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 0 10px;
+  gap: 6px;
   height: 32px;
+  padding: 0 10px;
   border: 1px solid transparent;
   background: transparent;
   cursor: pointer;
@@ -129,12 +133,13 @@
   transition: background 0.1s;
 }
 
-.sb-view-btn:hover {
+.sb-list-toggle-btn:hover {
   background: #f3f2f1;
 }
 
-.sb-view-btn.active {
+.sb-list-toggle-btn.active {
   background: #deecf9;
+  border-color: #0078d4;
   color: #0078d4;
   font-weight: 600;
 }
@@ -241,7 +246,6 @@
   background: #f3f2f1;
 }
 
-/* ── Tab Bar ─────────────────────────────────────────────────────────────── */
 /* ── Tab Bar ─────────────────────────────────────────────────────────────── */
 .sb-tabs {
   display: flex;
@@ -413,7 +417,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 1px;
-  max-width: 130px; /* Add this to limit the width */
+  max-width: 130px;
   align-items: flex-start;
 }
 
@@ -425,26 +429,26 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.2;
-  width: 100%; /* Ensure it takes full width */
-  text-align: left; /* Explicitly left align */
+  width: 100%;
+  text-align: left;
 }
 
 .sb-resource-utilization {
   font-size: 11px;
   color: #605e5c;
   line-height: 1.2;
-   width: 100%; /* Ensure it takes full width */
-  text-align: left; /* Explicitly left align */
+  width: 100%;
+  text-align: left;
 }
 
 .sb-resource-util-bar {
-  width: 80%; /* Changed from 100% to 80% */
+  width: 80%;
   height: 3px;
   background: #edebe9;
   border-radius: 2px;
   margin-top: 1px;
   overflow: hidden;
-  align-self: flex-start; /* Align the bar to the left */
+  align-self: flex-start;
 }
 
 .sb-resource-util-fill {
@@ -452,6 +456,11 @@
   border-radius: 2px;
   background: #0078d4;
   transition: width 0.3s;
+}
+
+/* Suggest row - keep hidden or remove if not needed */
+.sb-suggest-row {
+  display: none;
 }
 
 /* Pagination footer */
@@ -497,45 +506,49 @@
   flex-direction: column;
   overflow: hidden;
   background: #f3f2f1;
+  transition: all 0.25s ease-out;
 }
 
-/* Date label above time headers - this should match search bar height */
-.sb-date-label-row {
-  height: 24px; /* Reduced from 24px to 24px */
-  background: #f3f2f1;
+.sb-gantt-wrapper.panel-open {
+  width: calc(100% - 380px);
+  flex: 0 0 auto;
+}
+
+.sb-view-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Hourly View Styles */
+.sb-hourly-header-row {
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+}
+
+.sb-hourly-daylabel-header {
+  height: 24px;
   display: flex;
   align-items: center;
   padding-left: 12px;
   font-size: 12px;
   font-weight: 600;
   color: #323130;
+  background: #f3f2f1;
   border-bottom: 1px solid #e1dfdd;
   flex-shrink: 0;
 }
 
-/* Time header row */
-.sb-time-header {
+.sb-time-header-scroll-wrap {
+  overflow-x: hidden;
   display: flex;
-  flex-shrink: 0;
-  background: #fff;
-  border-bottom: 1px solid #e1dfdd;
-  height: 32px; /* Reduced from 40px to 32px */
-  overflow: hidden;
-  position: sticky;
-  top: 0;
-  z-index: 5;
-}
-
-.sb-time-header-inner {
-  display: flex;
-  overflow: hidden;
-  width: 100%;
+  pointer-events: none;
 }
 
 .sb-time-slot-header {
-  flex-shrink: 0;
-  width: 120px;
-  height: 32px; /* Reduced from 40px to 32px */
+  height: 32px;
   display: flex;
   align-items: center;
   padding-left: 8px;
@@ -543,6 +556,7 @@
   color: #605e5c;
   border-right: 1px solid #edebe9;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Gantt scroll container */
@@ -560,11 +574,10 @@
 }
 
 /* ── Gantt Row ──────────────────────────────────────────────────────────────── */
-/* Single resource row in gantt */
 .sb-gantt-row {
   display: flex;
   align-items: stretch;
-  height: 64px; /* Changed from 60px to 64px to match resource row */
+  height: 64px;
   border-bottom: 1px solid #edebe9;
   position: relative;
   background: #fff;
@@ -578,10 +591,8 @@
   background: #f0f6fd;
 }
 
-/* Hour cell background */
 .sb-gantt-cell {
   flex-shrink: 0;
-  width: 120px;
   border-right: 1px solid #f3f2f1;
   position: relative;
 }
@@ -609,7 +620,6 @@
   z-index: 3;
 }
 
-/* Color variants */
 .sb-booking-block.blue {
   background: #cfe8ff;
   border-color: #9dc5e8;
@@ -641,7 +651,6 @@
   border-color: #d2d0ce;
 }
 
-/* Dashed placeholder */
 .sb-booking-block.dashed {
   background: transparent;
   border: 2px dashed #c8c6c4;
@@ -707,6 +716,154 @@
   color: #fff;
 }
 
+/* Daily View Styles */
+.sb-daily-header-row {
+  flex-shrink: 0;
+  background: #fff;
+  border-bottom: 1px solid #e1dfdd;
+}
+
+.sb-daily-month-label {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #323130;
+  background: #f3f2f1;
+  border-bottom: 1px solid #e1dfdd;
+}
+
+.sb-daily-day-headers {
+  display: flex;
+  overflow: hidden;
+}
+
+.sb-daily-day-header {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #323130;
+  border-right: 1px solid #edebe9;
+  border-bottom: 1px solid #e1dfdd;
+  white-space: nowrap;
+}
+
+.sb-daily-resource-row {
+  display: flex;
+  border-bottom: 1px solid #edebe9;
+  background: #fff;
+  min-height: 64px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.sb-daily-resource-row:nth-child(even) {
+  background: #faf9f8;
+}
+
+.sb-daily-resource-row.selected-row {
+  background: #f0f6fd;
+}
+
+.sb-daily-day-cell {
+  flex-shrink: 0;
+  border-right: 1px solid #edebe9;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 64px;
+}
+
+.sb-daily-hours-bar {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #323130;
+  border-radius: 2px;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+.sb-daily-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 2px;
+  font-size: 11px;
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.sb-daily-chip.blue { background: #cfe8ff; border-color: #9dc5e8; }
+.sb-daily-chip.light-blue { background: #dce9f5; border-color: #bcd3ea; }
+.sb-daily-chip.dark-blue { background: #1c5ba0; color: #fff; }
+.sb-daily-chip.pink { background: #f4c0c0; border-color: #e8a0a0; }
+.sb-daily-chip.green { background: #d2e9b7; border-color: #b3d48a; }
+.sb-daily-chip.grey { background: #f3f2f1; border-color: #d2d0ce; }
+.sb-daily-chip.dashed { background: transparent; border: 1px dashed #c8c6c4; opacity: 0.7; }
+
+.sb-daily-chip-icon { flex-shrink: 0; }
+.sb-daily-chip-time { font-size: 11px; font-weight: 600; color: #323130; flex-shrink: 0; }
+.sb-daily-chip-title { font-size: 11px; color: #323130; overflow: hidden; text-overflow: ellipsis; }
+
+/* Weekly View Styles */
+.sb-weekly-header-wrap { flex-shrink: 0; }
+.sb-weekly-month-header { display: flex; background: #fff; border-bottom: 1px solid #edebe9; height: 24px; }
+.sb-weekly-month-seg {
+  display: flex; align-items: center;
+  padding-left: 8px;
+  font-size: 12px; font-weight: 600; color: #323130;
+  border-right: 1px solid #edebe9;
+  white-space: nowrap;
+  background: #f3f2f1;
+}
+.sb-weekly-week-header { display: flex; background: #fff; border-bottom: 1px solid #e1dfdd; height: 36px; }
+.sb-weekly-week-label {
+  height: 36px; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; color: #323130;
+  border-right: 1px solid #edebe9;
+}
+.sb-weekly-resource-row {
+  display: flex;
+  border-bottom: 1px solid #edebe9;
+  background: #fff;
+  height: 64px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.sb-weekly-resource-row:nth-child(even) { background: #faf9f8; }
+.sb-weekly-resource-row.selected-row { background: #f0f6fd; }
+.sb-weekly-week-cell {
+  border-right: 1px solid #edebe9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+.sb-weekly-hours-badge {
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #323130;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+}
+
 /* Zoom slider */
 .sb-zoom-row {
   display: flex;
@@ -715,8 +872,9 @@
   gap: 8px;
   padding: 0 12px;
   height: 32px;
-  background: #f3f2f1;
   border-top: 1px solid #e1dfdd;
+  /* border-bottom: 1px solid #e1dfdd; */
+  background: white;
   flex-shrink: 0;
 }
 
@@ -731,138 +889,6 @@
   color: #605e5c;
   width: 32px;
   text-align: right;
-}
-
-/* ── Bottom Panel ─────────────────────────────────────────────────────────── */
-.sb-bottom-panel {
-  flex-shrink: 0;
-  background: #fff;
-  border-top: 1px solid #e1dfdd;
-  display: flex;
-  flex-direction: column;
-  height: 200px;
-  overflow: hidden;
-}
-
-.sb-bottom-tabs {
-  display: flex;
-  align-items: flex-end;
-  gap: 0;
-  padding: 0 12px;
-  border-bottom: 1px solid #e1dfdd;
-  height: 36px;
-  flex-shrink: 0;
-}
-
-.sb-bottom-tab {
-  padding: 0 16px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  font-size: 13px;
-  color: #605e5c;
-  border-bottom: 2px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.1s;
-}
-
-.sb-bottom-tab.active {
-  color: #0078d4;
-  border-bottom-color: #0078d4;
-  font-weight: 600;
-}
-
-.sb-bottom-tab:hover {
-  color: #323130;
-}
-
-/* Requirements Table */
-.sb-req-table-wrapper {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-
-.sb-req-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-
-.sb-req-table thead th {
-  position: sticky;
-  top: 0;
-  background: #fff;
-  border-bottom: 1px solid #e1dfdd;
-  padding: 6px 12px;
-  text-align: left;
-  font-weight: 600;
-  color: #323130;
-  white-space: nowrap;
-  z-index: 1;
-}
-
-.sb-req-table thead th:first-child {
-  width: 32px;
-  padding: 6px 8px;
-}
-
-.sb-req-table tbody tr {
-  border-bottom: 1px solid #f3f2f1;
-  transition: background 0.1s;
-  cursor: pointer;
-}
-
-.sb-req-table tbody tr:hover {
-  background: #f3f2f1;
-}
-
-.sb-req-table tbody tr.selected {
-  background: #deecf9;
-}
-
-.sb-req-table tbody td {
-  padding: 6px 12px;
-  color: #323130;
-  white-space: nowrap;
-}
-
-.sb-req-table tbody td:first-child {
-  padding: 6px 8px;
-}
-
-.sb-req-link {
-  color: #0078d4;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.sb-req-link:hover {
-  text-decoration: underline;
-}
-
-.sb-status-active {
-  color: #107c10;
-}
-
-/* Bottom pagination */
-.sb-bottom-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 32px;
-  border-top: 1px solid #e1dfdd;
-  font-size: 12px;
-  color: #323130;
-  flex-shrink: 0;
-  background: #faf9f8;
-}
-
-.sb-bottom-footer .sb-page-btn {
-  width: 32px;
-  height: 32px;
 }
 
 /* ── List View Styles ────────────────────────────────────────────────────── */
@@ -909,12 +935,78 @@
   color: #107c10;
 }
 
+
+/* Expanded state - full height */
+.sb-bottom-panel:not(.collapsed) {
+  max-height: 200px;
+}
+
+
+
+.sb-bottom-panel-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 2px;
+  color: #605e5c;
+  transition: background 0.1s;
+  margin-left: 8px;
+}
+
+
+.sb-bottom-panel-toggle:hover {
+  color: #092ace;
+}
+
+.sb-bottom-panel-toggle svg {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Add a subtle border indicator when collapsed */
+.sb-bottom-panel.collapsed .sb-bottom-tabs {
+  border-bottom-color: #e1dfdd;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Optional: Add a "drag to expand" cursor on the tabs when collapsed */
+.sb-bottom-panel.collapsed .sb-bottom-tabs {
+  cursor: pointer;
+}
+
+.sb-bottom-panel.collapsed .sb-bottom-tabs,
+.sb-bottom-panel.collapsed .sb-req-table-wrapper,
+.sb-bottom-panel.collapsed .sb-bottom-footer {
+  display: none;
+}
+
+
+/* Collapsed state for bottom panel */
+.sb-bottom-panel.collapsed {
+  height: 0px;
+  min-height: 0px;
+  border-top: none;
+  overflow: hidden;
+}
+
+.sb-bottom-panel.collapsed .sb-req-table-wrapper,
+.sb-bottom-panel.collapsed .sb-bottom-footer {
+  display: none;
+}
+
+
 /* ── Scrollbar styling ───────────────────────────────────────────────────── */
+/* ── Scrollbar styling - Extra thin version (2px) ───────────────────────── */
 .sb-gantt-scroll::-webkit-scrollbar,
 .sb-resource-list::-webkit-scrollbar,
 .sb-req-table-wrapper::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 2px;
+  height: 2px;
 }
 
 .sb-gantt-scroll::-webkit-scrollbar-track,
@@ -927,7 +1019,7 @@
 .sb-resource-list::-webkit-scrollbar-thumb,
 .sb-req-table-wrapper::-webkit-scrollbar-thumb {
   background: #c8c6c4;
-  border-radius: 4px;
+  border-radius: 1px;
 }
 
 .sb-gantt-scroll::-webkit-scrollbar-thumb:hover,
@@ -936,259 +1028,34 @@
   background: #a19f9d;
 }
 
-/* ── NEW: Daily View Styles ───────────────────────────────────────────────── */
-.sb-view-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
+/* For Firefox */
+.sb-gantt-scroll,
+.sb-resource-list,
+.sb-req-table-wrapper {
+  scrollbar-width: thin;
+  scrollbar-color: #c8c6c4 #f3f2f1;
 }
 
-.sb-daily-header-row {
-  display: flex;
-  flex-shrink: 0;
-  background: #fff;
-  border-bottom: 1px solid #e1dfdd;
-  flex-direction: column;
+/* Remove borders from PowerApps wrapper containers */
+.control-container,
+.control-container > div,
+.control-container [role="presentation"],
+.customControl,
+.customControl [class*="flexbox"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
-.sb-daily-resource-row {
-  display: flex;
-  border-bottom: 1px solid #edebe9;
-  background: #fff;
-  min-height: 64px;
-  cursor: pointer;
-  transition: background 0.1s;
+/* Ensure your control fills the space without extra borders */
+.customControl.CustomControls.ScheduleBoardControl {
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
-.sb-daily-resource-row:nth-child(even) {
-  background: #faf9f8;
+/* Remove any potential borders from parent containers */
+.control-container {
+  border: none !important;
 }
 
-.sb-daily-resource-row.selected-row {
-  background: #f0f6fd;
-}
-
-.sb-daily-day-cell {
-  flex-shrink: 0;
-  border-right: 1px solid #edebe9;
-  padding: 4px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-height: 64px;
-  position: relative;
-}
-
-.sb-daily-day-cell-header {
-  font-size: 11px;
-  font-weight: 600;
-  color: #323130;
-  padding: 2px 4px;
-  border-bottom: 1px solid #f3f2f1;
-  text-align: center;
-}
-
-/* Daily Chip - shows "9:00 AM Title" like D365 */
-.sb-daily-chip {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  height: 22px;
-  padding: 0 6px;
-  border-radius: 2px;
-  font-size: 11px;
-  cursor: pointer;
-  overflow: hidden;
-  white-space: nowrap;
-  border: 1px solid transparent;
-  transition: filter 0.1s;
-}
-
-.sb-daily-chip:hover {
-  filter: brightness(0.95);
-}
-
-.sb-daily-chip.blue {
-  background: #cfe8ff;
-  border-color: #9dc5e8;
-}
-
-.sb-daily-chip.light-blue {
-  background: #dce9f5;
-  border-color: #bcd3ea;
-}
-
-.sb-daily-chip.pink {
-  background: #f4c0c0;
-  border-color: #e8a0a0;
-}
-
-.sb-daily-chip.green {
-  background: #d2e9b7;
-  border-color: #b3d48a;
-}
-
-.sb-daily-chip.grey {
-  background: #f3f2f1;
-  border-color: #d2d0ce;
-}
-
-.sb-daily-chip.dashed {
-  background: transparent;
-  border: 1px dashed #c8c6c4;
-  opacity: 0.7;
-}
-
-.sb-daily-chip.dark-blue {
-  background: #1c5ba0;
-  border-color: #164d8a;
-  color: #fff;
-}
-
-.sb-daily-chip-time {
-  font-size: 10px;
-  font-weight: 600;
-  color: #323130;
-  flex-shrink: 0;
-}
-
-.sb-daily-chip.dark-blue .sb-daily-chip-time {
-  color: #fff;
-}
-
-.sb-daily-chip-title {
-  font-size: 11px;
-  color: #323130;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sb-daily-chip.dark-blue .sb-daily-chip-title {
-  color: #fff;
-}
-
-.sb-daily-chip-icon {
-  flex-shrink: 0;
-  color: #605e5c;
-  font-size: 10px;
-}
-
-.sb-daily-chip.dark-blue .sb-daily-chip-icon {
-  color: #c7e0f4;
-}
-
-/* Hours summary bar at top of day column */
-.sb-daily-hours-bar {
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 600;
-  color: #323130;
-  border-radius: 2px;
-  padding: 0 4px;
-  white-space: nowrap;
-  margin-bottom: 2px;
-}
-
-/* ── NEW: Weekly View Styles ──────────────────────────────────────────────── */
-.sb-weekly-resource-row {
-  display: flex;
-  border-bottom: 1px solid #edebe9;
-  background: #fff;
-  height: 64px;
-  cursor: pointer;
-  transition: background 0.1s;
-}
-
-.sb-weekly-resource-row:nth-child(even) {
-  background: #faf9f8;
-}
-
-.sb-weekly-resource-row.selected-row {
-  background: #f0f6fd;
-}
-
-.sb-weekly-week-cell {
-  flex-shrink: 0;
-  border-right: 1px solid #edebe9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-}
-
-.sb-weekly-hours-badge {
-  padding: 4px 8px;
-  border-radius: 2px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #323130;
-  white-space: nowrap;
-  text-align: center;
-  width: 100%;
-  min-height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Weekly Header */
-.sb-weekly-header-wrap {
-  flex-shrink: 0;
-  background: #fff;
-  border-bottom: 1px solid #e1dfdd;
-}
-
-.sb-weekly-month-header {
-  display: flex;
-  background: #f3f2f1;
-  border-bottom: 1px solid #edebe9;
-  height: 22px;
-}
-
-.sb-weekly-month-seg {
-  display: flex;
-  align-items: center;
-  padding-left: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #323130;
-  border-right: 1px solid #edebe9;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.sb-weekly-week-header {
-  display: flex;
-  background: #fff;
-  border-bottom: 1px solid #e1dfdd;
-  height: 32px;
-}
-
-.sb-weekly-week-label {
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  font-weight: 600;
-  color: #323130;
-  border-right: 1px solid #edebe9;
-}
-
-/* ── Fix for Hourly View header ────────────────────────────────────────────── */
-.sb-hourly-header-row {
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  background: #fff;
-  border-bottom: 1px solid #e1dfdd;
-}
-
-.sb-hourly-header-row .sb-date-label-row {
-  border-bottom: 1px solid #edebe9;
-  background: #f3f2f1;
-}
